@@ -1,13 +1,10 @@
-# train_sign_seq.py
 import os, glob, argparse, json
 import numpy as np
 import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras import layers
 
-# ------------------------------------------------------------
-# Utils de carga
-# ------------------------------------------------------------
+
 def load_dataset(root_dir):
     """
     Espera estructura:
@@ -62,9 +59,7 @@ def standardize_train(X_train, X_val):
     X_val_n   = (X_val   - mean)/std
     return X_train_n, X_val_n, mean, std
 
-# ------------------------------------------------------------
-# Modelo: TCN + BiLSTM + Atención ligera
-# ------------------------------------------------------------
+
 def temporal_cnn_block(x, filters, kernel_size, dilation):
     x = layers.Conv1D(filters, kernel_size, padding="causal", dilation_rate=dilation)(x)
     x = layers.BatchNormalization()(x)
@@ -168,3 +163,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
